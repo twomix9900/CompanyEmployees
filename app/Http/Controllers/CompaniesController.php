@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Companies;
 use App\Traits\UploadTrait;
+use App\Http\Resources\APIResource;
 
 class CompaniesController extends Controller
 {
@@ -130,5 +131,11 @@ class CompaniesController extends Controller
         $company->delete();
 
         return redirect('/companies')->with('success', 'Company deleted!');
+    }
+
+    public function get_companies()
+    {
+        $companies = Companies::get();
+        return APIResource::collection($companies);
     }
 }

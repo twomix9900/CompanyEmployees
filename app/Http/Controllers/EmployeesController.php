@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Employees;
+use App\Http\Resources\APIResource;
 
 class EmployeesController extends Controller
 {
@@ -121,5 +122,11 @@ class EmployeesController extends Controller
         $employee->delete();
 
         return redirect('/employees')->with('success', 'Employee deleted!');
+    }
+
+    public function get_employees()
+    {
+        $employees = Employees::get();
+        return APIResource::collection($employees);
     }
 }
