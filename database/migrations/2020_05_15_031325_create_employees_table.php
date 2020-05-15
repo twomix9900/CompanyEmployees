@@ -19,7 +19,7 @@ class CreateEmployeesTable extends Migration
             $table->string('first_name')->nullable(false);
             $table->string('last_name')->nullable(false);
             $table->string('email')->nullable(false)->unique();
-            $table->foreignId('company')->references('id')->on('companies'); // FK to Companies, employee can only belong to one company
+            $table->foreignId('company')->references('id')->on('companies')->onDelete('cascade');
         });
     }
 
@@ -33,3 +33,4 @@ class CreateEmployeesTable extends Migration
         Schema::dropIfExists('employees');
     }
 }
+

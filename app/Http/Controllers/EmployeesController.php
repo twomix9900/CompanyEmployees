@@ -100,7 +100,6 @@ class EmployeesController extends Controller
         $request->validate([
             'first_name'=>'required',
             'last_name'=>'required',
-            'email'=>'required|unique:employees',
             'company'=>'required|exists:companies,id'
         ],
         [
@@ -110,7 +109,6 @@ class EmployeesController extends Controller
         $employee = Employees::find($id);
         $employee->first_name =  $request->get('first_name');
         $employee->last_name = $request->get('last_name');
-        $employee->email = $request->get('email');
         $employee->company = $request->get('company');
         $employee->save();
 

@@ -28,11 +28,7 @@
                 <label for="last_name">Last Name:</label>
                 <input type="text" class="form-control" name="last_name" value={{ $employee->last_name }} />
             </div>
-
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="text" class="form-control" name="email" value={{ $employee->email }} />
-            </div>
+            
             <div class="form-group">
                 <label for="city">Company:</label>
                 <input type="text" class="form-control" name="company" value={{ $employee->company }} />
