@@ -14,7 +14,7 @@ class AddRoleFieldToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('role', ['user', 'admin'])->default('user');
+            $table->enum('role', ['user', 'admin', 'employee'])->default('employee');
         });
     }
 
