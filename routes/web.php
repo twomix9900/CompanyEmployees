@@ -31,5 +31,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('employees', 'EmployeesController');
-    Route::resource('companies', 'CompaniesController');
+    Route::resource('companies', 'CompaniesController')->middleware('admin_routes');
 });

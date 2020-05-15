@@ -1,3 +1,7 @@
+@include('flash-message')
+
+
+@yield('content')
 @extends('layouts.app')
 
 @section('content')
