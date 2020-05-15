@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Companies;
+use App\Traits\UploadTrait;
 
 class CompaniesController extends Controller
 {
+    use UploadTrait;
     /**
      * Display a listing of the resource.
      *
@@ -39,13 +41,22 @@ class CompaniesController extends Controller
     {
         $request->validate([
             'name'=>'required',
+            'logo'=>'dimensions:min_width=100,min_height=100'
+        ],
+        [
+            'logo.dimensions'=>'Logo must have dimensions of at least 100x100',
         ]);
 
         $company = new Companies([
             'name' => $request->get('name'),
             'website' => $request->get('website'),
-            'logo' => $request->get('logo'),
         ]);
+
+        if ($request->has('logo')) {
+            $file_path = $request->logo->store('public');
+            $company->logo = substr($file_path, 7);
+        }
+
         $company->save();
         return redirect('/companies')->with('success', 'Company saved!');
     }
@@ -84,12 +95,21 @@ class CompaniesController extends Controller
     {
         $request->validate([
             'name'=>'required',
+            'logo'=>'dimensions:min_width=100,min_height=100'
+        ],
+        [
+            'logo.dimensions'=>'Logo must have dimensions of at least 100x100',
         ]);
+
 
         $company = Companies::find($id);
         $company->name =  $request->get('name');
         $company->website =  $request->get('website');
-        $company->logo =  $request->get('logo');
+        if ($request->has('logo')) {
+            $file_path = $request->logo->store('public');
+            $company->logo = substr($file_path, 7);
+        }
+
         $company->save();
 
         return redirect('/companies')->with('success', 'Company updated!');

@@ -15,7 +15,7 @@
         </div>
         <br /> 
         @endif
-        <form method="post" action="{{ route('companies.update', $company->id) }}">
+        <form method="post" action="{{ route('companies.update', $company->id) }}" enctype="multipart/form-data">
             @method('PATCH') 
             @csrf
             <div class="form-group">
@@ -30,8 +30,8 @@
             </div>
 
             <div class="form-group">
-                <label for="logo">Logo:</label>
-                <input type="text" class="form-control" name="logo" value={{ $company->logo }} />
+              <label for="logo">Logo</label>
+              <input id="logo" type="file" class="form-control" name="logo">
             </div>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>

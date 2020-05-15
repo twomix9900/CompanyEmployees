@@ -28,6 +28,7 @@
   <table class="table table-striped">
     <thead>
         <tr>
+          <td>ID</td>
           <td>Name</td>
           <td>Website</td>
           <td>Logo</td>
@@ -37,9 +38,12 @@
         @foreach($companies as $company)
         @if(Auth::user()->role === 'admin' || Auth::user()->company()->first()->company === $company->company)
         <tr>
+            <td>{{$company->id}}</td>
             <td>{{$company->name}}</td>
             <td>{{$company->website}}</td>
-            <td>{{$company->logo}}</td>
+            <td>
+              <img src="{{asset('/storage/'.$company->logo)}}" style="max-width: 100; max-height: 100;" alt="" />
+            </td>
             <td>
                 @if(Auth::user()->role === 'admin' || Auth::user()->email === $company->email)
                 <a href="{{ route('companies.edit', $company->id)}}" class="btn btn-primary">Edit</a>

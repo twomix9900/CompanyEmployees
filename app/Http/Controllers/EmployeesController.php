@@ -41,6 +41,10 @@ class EmployeesController extends Controller
             'first_name'=>'required',
             'last_name'=>'required',
             'email'=>'required|unique:employees',
+            'company'=>'required|exists:companies,id'
+        ],
+        [
+            'company.exists'=>'This company does not exist'
         ]);
 
         $employee = new Employees([
@@ -88,7 +92,11 @@ class EmployeesController extends Controller
         $request->validate([
             'first_name'=>'required',
             'last_name'=>'required',
-            'email'=>'required|unique:employees'
+            'email'=>'required|unique:employees',
+            'company'=>'required|exists:companies,id'
+        ],
+        [
+            'company.exists'=>'This company does not exist'
         ]);
 
         $employee = Employees::find($id);
