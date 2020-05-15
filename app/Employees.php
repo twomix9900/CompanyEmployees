@@ -12,4 +12,9 @@ class Employees extends Model
         'email',
         'company',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'email', 'email');
+    }
 }

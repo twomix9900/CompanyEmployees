@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use App\Companies;
+use App\Employees;
 
 class UserSeeder extends Seeder
 {
@@ -12,32 +14,69 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $users = [[
-            'name' => 'Test Admin',
+        $users = [
+        [
+            'name' => 'Admin',
             'email' => '​admin@admin.com',
             'password' => bcrypt('password'),
             'role' => 'admin'
         ],
         [
-            'name' => 'Test Employee',
+            'name' => 'User1',
             'email' => 'employee@employee.com',
             'password' => bcrypt('password'),
             'role' => 'employee'
-        ]];
+        ],
+        [
+            'name' => 'User2',
+            'email' => 'employee2@employee2.com',
+            'password' => bcrypt('password'),
+            'role' => 'employee'
+        ],
+        ];
         User::insert($users);
     
 
-        DB::table('companies')->insert([
-            'name' => 'Test Company',
-            'website' => 'www.test.com',
+        $companies = [
+        [
+            'name' => 'Test Company 1',
+            'website' => 'www.test1.com',
             'logo' => 'PH'
-        ]);
+        ],
+        [
+            'name' => 'Test Company 2',
+            'website' => 'www.test2.com',
+            'logo' => 'PH'
+        ]
+        ];
+        Companies::insert($companies);
 
-        DB::table('employees')->insert([
-            'first_name' => 'Test',
-            'last_name' => 'Employee',
-            'email' => 'test@test.com',
-            'company' => '1'
-        ]);
+        $employees = [
+            [
+                'first_name' => 'Employee',
+                'last_name' => '1',
+                'email' => 'employee@employee.com',
+                'company' => '1'
+            ],
+            [
+                'first_name' => 'Employee22',
+                'last_name' => '1',
+                'email' => 'employee22@employee22.com',
+                'company' => '2'
+            ],
+            [
+                'first_name' => 'Employee11',
+                'last_name' => '1',
+                'email' => 'employee11@employee11.com',
+                'company' => '1'
+            ],
+            [
+                'first_name' => 'Employee',
+                'last_name' => '2',
+                'email' => 'employee2@employee2.com',
+                'company' => '2'
+            ]
+            ];
+        Employees::insert($employees);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Companies;
 
 class CompaniesController extends Controller
 {
@@ -13,7 +14,9 @@ class CompaniesController extends Controller
      */
     public function index()
     {
-        //
+        $companies = Companies::all();
+
+        return view('companies.index', compact('companies'));
     }
 
     /**
@@ -23,7 +26,7 @@ class CompaniesController extends Controller
      */
     public function create()
     {
-        //
+        return view('companies.create');
     }
 
     /**
@@ -34,7 +37,17 @@ class CompaniesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+        ]);
+
+        $company = new Companies([
+            'name' => $request->get('name'),
+            'website' => $request->get('website'),
+            'logo' => $request->get('logo'),
+        ]);
+        $company->save();
+        return redirect('/companies')->with('success', 'Company saved!');
     }
 
     /**
@@ -56,7 +69,8 @@ class CompaniesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $company = Companies::find($id);
+        return view('companies.edit', compact('company'));  
     }
 
     /**
@@ -68,7 +82,17 @@ class CompaniesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+        ]);
+
+        $company = Companies::find($id);
+        $company->name =  $request->get('name');
+        $company->website =  $request->get('website');
+        $company->logo =  $request->get('logo');
+        $company->save();
+
+        return redirect('/companies')->with('success', 'Company updated!');
     }
 
     /**
@@ -79,6 +103,9 @@ class CompaniesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $company = Companies::find($id);
+        $company->delete();
+
+        return redirect('/companies')->with('success', 'Company deleted!');
     }
 }
