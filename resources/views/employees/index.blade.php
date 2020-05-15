@@ -1,3 +1,6 @@
+@include('flash-message')
+@yield('content')
+
 @if(Auth::user()->role === 'admin')
 <!-- The admin user has full access to perform full  CRUD operations on both Companies and Employee -->
     <h5 style="text-align: center; color: green;">Admin View (debugging purpose)</h5>
@@ -62,6 +65,7 @@
         @endforeach
     </tbody>
   </table>
+  {{ $employees->links() }}	
   <div>
   @if(Auth::user()->role === 'admin')
   <a style="margin: 19px;" href="{{ route('employees.create')}}" class="btn btn-primary">New employee</a>

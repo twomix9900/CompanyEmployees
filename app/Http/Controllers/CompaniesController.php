@@ -16,7 +16,7 @@ class CompaniesController extends Controller
      */
     public function index()
     {
-        $companies = Companies::all();
+        $companies = Companies::paginate(10);
 
         return view('companies.index', compact('companies'));
     }
@@ -55,6 +55,9 @@ class CompaniesController extends Controller
         if ($request->has('logo')) {
             $file_path = $request->logo->store('public');
             $company->logo = substr($file_path, 7);
+        }
+        else {
+            $company->logo = '';
         }
 
         $company->save();
