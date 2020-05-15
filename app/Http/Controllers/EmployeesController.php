@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Employees;
 use App\Http\Resources\APIResource;
+use Illuminate\Support\Facades\Auth;
+
 
 class EmployeesController extends Controller
 {
@@ -15,7 +17,12 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        $employees = Employees::paginate(10);
+        if (Auth::user()->role !== 'admin') {
+            $employees = Employees::where('company', Auth::user()->employee()->first()->company)->paginate(10);
+        }
+        else {
+            $employees = Employees::paginate(10);
+        }
 
         return view('employees.index', compact('employees'));
     }

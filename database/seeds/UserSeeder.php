@@ -14,6 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker\Factory::create();
         $users = [
         [
             'name' => 'Admin',
@@ -78,5 +79,35 @@ class UserSeeder extends Seeder
             ]
             ];
         Employees::insert($employees);
+
+        for ($i = 0; $i < 1000; $i++) {
+            $faker_company = $faker->company;
+            App\Companies::create([
+                'name' => $faker_company,
+                // 'email' => $faker->unique()->email,
+                'website' => 'www.' . str_replace(',', '', str_replace(' ', '', $faker_company)) . '.com',
+                'logo' => ''
+            ]);
+        }
+
+        for ($i = 0; $i < 1000; $i++) {
+            $faker_first_name = $faker->firstName;
+            $faker_last_name = $faker->lastName;
+            $faker_full_name = $faker_first_name . $faker_last_name;
+            $faker_email = $faker_full_name . '@' . $faker->domainName;
+            App\Employees::create([
+                'first_name' => $faker_first_name,
+                'last_name' => $faker_last_name,
+                'email' => $faker_email,
+                'company' => $faker->numberBetween(1, 1000)
+            ]);
+
+            App\User::create([
+                'name' => $faker_full_name,
+                'email' => $faker_email,
+                'password' => bcrypt('password'),
+                'role' => 'employee'
+            ]);
+        }
     }
 }
